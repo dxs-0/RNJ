@@ -2,11 +2,22 @@ import random
 import os
 from flask import Flask, render_template, jsonify
 
-app = Flask(__name__) 
+# Module docstring
+"""
+This is the DND dice Flask application
+"""
+
+
+app = Flask(__name__)
 
 
 
 def random_thought_generator():
+    """
+    Generates a random thought from a predefined list of thoughts.
+    Returns:
+        str: A random thought.
+    """
     thoughts = [
         "1",
         "2",
@@ -18,7 +29,7 @@ def random_thought_generator():
         "8",
         "9",
         "10",
-        "11", 
+        "11",
         "12",
         "13",
         "14",
@@ -33,11 +44,21 @@ def random_thought_generator():
 
 @app.route("/")
 def index():
-          return render_template("index.html") 
+    """
+    Renders the index page.
+    Returns:
+        str: The rendered index HTML page.
+    """
+    return render_template("index.html")
 
 
 @app.route("/get-thought")
 def get_thought():
+    """
+    Returns a random thought as a JSON response.
+    Returns:
+        jsonify: A JSON object containing the random thought.
+    """
     return jsonify({"thought": random_thought_generator()})
 
 
