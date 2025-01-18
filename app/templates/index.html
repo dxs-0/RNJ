@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RN Jesus</title>
+    <script>
+        async function fetchThought() {
+            const response = await fetch('/get-thought');
+            const data = await response.json();
+            if (data.thought) {
+                document.getElementById('thought-display').innerText = data.thought;
+            } else {
+                document.getElementById('thought-display').innerText = "Something went wrong!";
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #thought-display {
+            font-size: 1.5em;
+            margin: 20px 0;
+        }
+        img {
+            margin-top: 20px;
+            width: 300px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to RN Jesus</h1>
+    <button onclick="fetchThought()">What is RN Jesus thinking now ?</button>
+    <div id="thought-display">Click the button to get a random thought, by yours truly RN Jesus!</div>
+    <img src="{{ url_for('static', filename='RNJ.png') }}" alt="Random Thought Image">
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

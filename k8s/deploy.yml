@@ -1,0 +1,22 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-flask-hello-world
+  labels:
+    app: python-flask
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: python-flask
+  template:
+    metadata:
+      labels:
+        app: python-flask
+    spec:
+      containers:
+        - name: python-flask
+          image: dxs01/ci:sha-3cbbebd
+          ports:
+            - containerPort: 5000
