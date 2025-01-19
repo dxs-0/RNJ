@@ -143,13 +143,10 @@ jobs:
       - name: Yamllint
         uses: karancode/yamllint-github-action@master
         with:
-          config_data: |
-            extends: default
-            rules:
-              line-lenght:
-                max:120
+          yamlint_config_filepath: .yamlint
           yamllint_strict: false
           yamllint_comment: true
+          yamlint_file_or_dir: .
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
