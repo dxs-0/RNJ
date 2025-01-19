@@ -11,7 +11,6 @@ This is the DND dice Flask application
 app = Flask(__name__)
 
 
-
 def random_thought_generator():
     """
     Generates a random thought from a predefined list of thoughts.
@@ -38,9 +37,10 @@ def random_thought_generator():
         "17",
         "18",
         "19",
-        "20"
+        "20",
     ]
     return random.choice(thoughts)
+
 
 @app.route("/")
 def index():
@@ -62,7 +62,5 @@ def get_thought():
     return jsonify({"thought": random_thought_generator()})
 
 
-
-
 if __name__ == "__main__":
-    app.run(port=os.environ.get("PORT", 3000),host="0.0.0.0")
+    app.run(port=os.environ.get("PORT", 3000), host="0.0.0.0")

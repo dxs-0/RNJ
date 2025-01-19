@@ -1,3 +1,3 @@
-Welcome to RNJesus !
+# Welcome to RNJesus !
 
 A small webapp for rolling Dungeons and Dragons dice.

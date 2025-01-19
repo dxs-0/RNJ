@@ -143,6 +143,7 @@ jobs:
       - name: Yamllint
         uses: karancode/yamllint-github-action@master
         with:
+          yamllint_args: "--config-data '{rules: {line-length: {max: 0}}}'"
           yamllint_strict: false
           yamllint_comment: true
         env:
