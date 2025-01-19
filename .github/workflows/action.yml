@@ -4,7 +4,7 @@ name: GitHub Actions rn_jesus
 on:
   push:
     branches:
-      - main
+      - Testing
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -141,12 +141,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Yamllint
-        uses: karancode/yamllint-github-action@master
+        uses: ibiqlik/action-yamllint@v3
         with:
-          yamlint_config_filepath: .yamlint
+          config_file: .yamlint.yml
+          file_or_dir: .
           yamllint_strict: false
-          yamllint_comment: true
-          yamlint_file_or_dir: .
+          format: parsable
+          no_warnings: false
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
