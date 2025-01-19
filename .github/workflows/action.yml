@@ -145,7 +145,7 @@ jobs:
         with:
           config_file: .yamlint.yml
           file_or_dir: .
-          yamllint_strict: false
+          strict: false
           format: parsable
           no_warnings: false
         env:
