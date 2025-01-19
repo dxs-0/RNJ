@@ -2,12 +2,6 @@ import random
 import os
 from flask import Flask, render_template, jsonify
 
-# Module docstring
-"""
-This is the DND dice Flask application
-"""
-
-
 app = Flask(__name__)
 
 

@@ -1,5 +1,5 @@
 ---
-name: GitHub Actions CI
+name: GitHub Actions rn_jesus
 
 on:
   push:
@@ -55,7 +55,7 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
+      - name: Install dependenrn_jesuses
         run: |
           python -m pip install --upgrade pip
           pip install pylint
@@ -73,7 +73,7 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
-      - name: Install dependencies
+      - name: Install dependenrn_jesuses
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
@@ -116,7 +116,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Install dependencies
+      - name: Install dependenrn_jesuses
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
@@ -160,14 +160,14 @@ jobs:
         with:
           context: .
           push: false
-          tags: ${{ secrets.DOCKER_USERNAME }}/ci:${{ github.sha }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/rn_jesus:${{ github.sha }}
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
         with:
           # list of Docker images to use as base name for tags
           images: |
-            ${{ secrets.DOCKER_USERNAME }}/ci
+            ${{ secrets.DOCKER_USERNAME }}/rn_jesus
           # generate Docker tags based on the following events/attributes
           tags: |
             type=sha
@@ -176,7 +176,7 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: "${{ secrets.DOCKER_USERNAME }}/ci:${{ github.sha }}"
+          image-ref: "${{ secrets.DOCKER_USERNAME }}/rn_jesus:${{ github.sha }}"
           format: "table"
           exit-code: "1"
           ignore-unfixed: true
