@@ -164,5 +164,5 @@ cython_debug/
 *.tfstate
 *.tfstate.*
 .terraform/
-my-key-pair
+my_key_pair
 .terraform.lock.hcl
