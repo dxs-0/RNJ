@@ -2,21 +2,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: python-flask-hello-world
+  name: rn-jesus-deploy
   labels:
-    app: python-flask
+    app: rn-jesus
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: python-flask
+      app: rn-jesus
   template:
     metadata:
       labels:
-        app: python-flask
+        app: rn-jesus
     spec:
       containers:
-        - name: python-flask
-          image: dxs01/ci:sha-3cbbebd
+        - name: rn-jesus-container
+          image: dxs01/rn_jesus:latest #  TAG ISSUE
           ports:
-            - containerPort: 5000
+            - containerPort: 3000
