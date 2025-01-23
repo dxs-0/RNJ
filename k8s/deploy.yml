@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
         - name: rn-jesus-container
-          image: dxs01/rn_jesus:latest #  TAG ISSUE
+          image: dxs01/rn_jesus:sha-4e19dbc #  TAG ISSUE
           ports:
             - containerPort: 3000

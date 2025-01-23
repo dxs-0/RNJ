@@ -1,5 +1,6 @@
 FROM ubuntu:22.04
 WORKDIR /app
+USER jesus 
 COPY requirements.txt ./
 
 # no need to have " / "
@@ -12,7 +13,7 @@ RUN useradd Jesus && \
   python3-pip \
   && pip3 install --no-cache-dir -r requirements.txt
 
-USER jesus 
+
 COPY --chown=Jesus  app/ /app
 
 EXPOSE 3000 
