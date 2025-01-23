@@ -1,2 +1,2 @@
-[worker]
-18.198.50.186
+[ec2_node]
+ ubuntu@ec2-52-29-251-98.eu-central-1.compute.amazonaws.com ansible_user=ubuntu ansible_ssh_private_key_file=/home/dxs01/finalSolution/terraform/my-key-pair.pem ansible_become=true 
