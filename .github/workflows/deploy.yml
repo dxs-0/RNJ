@@ -1,0 +1,35 @@
+name: Deploy to Kubernetes
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to K3s
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Fetch kubeconfig from K3s server
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          K3S_USER: ubuntu
+          K3S_HOST: ${{ secrets.K3S_HOST }}
+        run: |
+          mkdir -p ~/.kube
+          ssh -o StrictHostKeyChecking=no -i "$SSH_PRIVATE_KEY" $K3S_USER@$K3S_HOST \
+            "sudo cat /etc/rancher/k3s/k3s.yaml" > ~/.kube/config
+          sed -i "s/127.0.0.1/${{ secrets.K3S_HOST }}/g" ~/.kube/config
+
+      - name: Verify kubectl connection
+        run: kubectl get nodes
+
+      - name: Apply Kubernetes manifests
+        run: |
+          kubectl apply -f k8s/
+
+      - name: Wait for deployment to complete
+        run: |
+          kubectl rollout status deployment/RNJ -n rn_jesus
