@@ -31,7 +31,7 @@ jobs:
       - name: Create kubeconfig
         run: |
           mkdir -p ${HOME}/.kube
-          echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > ${HOME}/.kube/config
+          kubectl config view --raw > $(HOME)/.kube/config
 
       - name: Replace Public IP in Ingress Manifest
         run: |
