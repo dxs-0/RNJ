@@ -2,11 +2,12 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: rn-jesus-ingress
+  namespace: rn-jesus
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: ec2-52-29-251-98.eu-central-1.compute.amazonaws.com
+    - host: "${secrets.PUBLIC_IP}.elb.amazonaws.com"
       http:
         paths:
           - path: /

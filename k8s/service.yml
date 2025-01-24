@@ -3,6 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: rn-jesus-srv
+  namespace: rn-jesus
 spec:
   selector:
     app: rn-jesus

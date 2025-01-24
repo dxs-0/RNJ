@@ -1,16 +1,8 @@
 ---
-- name: Install K3S on EC2 Ubuntu based
-  hosts: ec2_node
-  gather_facts: true
-  vars:
-    ec2_user: ubuntu
+- hosts: all
   become: true
-
-  tasks:
-    - name: Ensure inventory is loaded
-      set_fact:
-        ansible_inventory_file: /home/dxs01/finalSolution/ansible_playbooks/invenory
-
+  gather_facts: false
+  pre_tasks:
     - name: Update apt
       apt:
         update_cache: yes
@@ -22,19 +14,20 @@
           - python3-pip
           - python3-kubernetes
         state: present
-
     - name: Ensure the ubuntu user is in the sudo group
       user:
         name: ubuntu
         groups: sudo
         append: yes
 
+- hosts: ec2_node
+  become: true
+  gather_facts: true
+  tasks:
+    # Install K3s
     - name: Install K3s on the node
       shell: "curl -sfL https://get.k3s.io | sh -"
       register: k3s_install
-      delegate_to: "{{ inventory_hostname }}"
-      vars:
-        ansible_ssh_private_key_file: "/home/dxs01/finalSolution/terraform/my_key_pair.pem"
 
     - name: Wait for K3s to be ready
       command: kubectl get nodes --kubeconfig /etc/rancher/k3s/k3s.yaml
@@ -43,13 +36,7 @@
       delay: 10
       until: k3s_status.rc == 0
       changed_when: false
-      delegate_to: "{{ inventory_hostname }}"
-      vars:
-        ansible_ssh_private_key_file: "/home/dxs01/finalSolution/terraform/my_key_pair.pem"
 
     - name: Output K3s status
       debug:
         msg: "K3s installation is complete. Node status: {{ k3s_status.stdout }}"
-      delegate_to: "{{ inventory_hostname }}"
-      vars:
-        ansible_ssh_private_key_file: "/home/dxs01/finalSolution/terraform/my_key_pair.pem"

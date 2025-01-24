@@ -166,3 +166,6 @@ cython_debug/
 .terraform/
 my_key_pair
 .terraform.lock.hcl
+kubeconfig_base64.txt
+vars.yml 
+

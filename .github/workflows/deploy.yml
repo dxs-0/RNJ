@@ -1,4 +1,5 @@
 name: Deploy to Kubernetes
+
 on:
   push:
     branches:
@@ -6,30 +7,43 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to K3s
+    name: Deploy to Kubernetes
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
-      - name: Fetch kubeconfig from K3s server
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          K3S_USER: ubuntu
-          K3S_HOST: ${{ secrets.K3S_HOST }}
+      - name: Set up AWS CLI
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+
+      - name: Download public IP from S3
         run: |
-          mkdir -p ~/.kube
-          ssh -o StrictHostKeyChecking=no -i "$SSH_PRIVATE_KEY" $K3S_USER@$K3S_HOST \
-            "sudo cat /etc/rancher/k3s/k3s.yaml" > ~/.kube/config
-          sed -i "s/127.0.0.1/${{ secrets.K3S_HOST }}/g" ~/.kube/config
+          aws s3 cp s3://rnj-bucket/public_ip.txt ./public_ip.txt
 
-      - name: Verify kubectl connection
-        run: kubectl get nodes
-
-      - name: Apply Kubernetes manifests
+      - name: Read the public IP
         run: |
-          kubectl apply -f k8s/
+          export PUBLIC_IP=$(cat public_ip.txt)
+          echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_ENV
 
-      - name: Wait for deployment to complete
+      - name: Create kubeconfig
         run: |
-          kubectl rollout status deployment/RNJ -n rn_jesus
+          mkdir -p ${HOME}/.kube
+          echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > ${HOME}/.kube/config
+
+      - name: Replace Public IP in Ingress Manifest
+        run: |
+          sed -i "s/\${PUBLIC_IP}/$PUBLIC_IP/g" k8s/ingress.yml
+
+      - name: Create context
+        run: |
+          kubectl config set-context rn-jesus-context --cluster=your-cluster-rn-jesus --user=jesus --namespace=rn-jesus
+
+      - name: Use context
+        run: kubectl config use-context rn-jesus-context
+
+      - name: Deploy to K8s
+        run: kubectl apply -f k8s/
