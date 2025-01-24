@@ -46,3 +46,12 @@ jobs:
 
       - name: Deploy to K8s
         run: kubectl apply -f k8s/
+
+      - name: Enable Debugging
+        run: |
+          set -x
+          export KUBECONFIG=${HOME}/.kube/config
+          kubectl version --client
+          kubectl config view
+          kubectl config get-contexts
+          kubectl config current-context
