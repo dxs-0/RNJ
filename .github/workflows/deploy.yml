@@ -21,11 +21,11 @@ jobs:
 
       - name: Download public IP from S3
         run: |
-          aws s3 cp s3://rnj-bucket/public_ip.txt ./public_ip.txt
+          aws s3 cp s3://rnj-bucket/terraform_outputs.json ./terraform_outputs.json
 
       - name: Read the public IP
         run: |
-          export PUBLIC_IP=$(cat public_ip.txt)
+          export PUBLIC_IP=$(jq -r '.instance_public_ip.value' terraform_outputs.json)
           echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_ENV
 
       - name: Create kubeconfig
