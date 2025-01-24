@@ -30,22 +30,25 @@ jobs:
 
       - name: Create kubeconfig
         run: |
-          sudo mkdir -p ${HOME}/.kube
-          sudo echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > ${HOME}/.kube/config
+          mkdir -p ${HOME}/.kube
+          echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > ${HOME}/.kube/config
 
       - name: Replace Public IP in Ingress Manifest
         run: |
-          sudo sed -i "s/\${PUBLIC_IP}/$PUBLIC_IP/g" k8s/ingress.yml
+          sed -i "s/\${PUBLIC_IP}/$PUBLIC_IP/g" k8s/ingress.yml
 
       - name: Create context
         run: |
-          sudo kubectl config set-context rn-jesus-context --cluster=your-cluster-rn-jesus --user=jesus --namespace=rn-jesus
+          kubectl config set-context rn-jesus-context --cluster=your-cluster-rn-jesus --user=jesus --namespace=rn-jesus
 
       - name: Use context
-        run: sudo kubectl config use-context rn-jesus-context
+        run: kubectl config use-context rn-jesus-context
 
       - name: Deploy to K8s
-        run: sudo kubectl apply -f k8s/
+        run: |
+          kubectl apply -f k8s/deploy.yml
+          kubectl apply -f k8s/service.yml
+          kubectl apply -f k8s/ingress.yml
 
       - name: Enable Debugging
         run: |
