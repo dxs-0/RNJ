@@ -36,3 +36,9 @@ variable "instance_type" {
   type        = string
   default     = "t2.micro"
 }
+
+variable "ansible_user" {
+  description = "Default user for SSH access for ansible"
+  type        = string
+  default     = "ubuntu"
+}

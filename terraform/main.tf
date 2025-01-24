@@ -13,6 +13,10 @@ terraform {
       source  = "hashicorp/local"
       version = ">= 2.0"
     }
+    ansible = {
+      source  = "ansible/ansible"
+      version = "1.3.0"
+    }
   }
 }
 provider "aws" {
@@ -40,4 +44,23 @@ resource "aws_instance" "web" {
   tags = {
     Name = "RNJ"
   }
+
 }
+resource "ansible_host" "web" {
+  count  = length(aws_instance.web)
+  name   = "web"
+  groups = ["web"]
+  variables = {
+    ansible_host = aws_instance.web.public_ip
+    ansible_user = var.ansible_user
+  }
+}
+
+resource "ansible_group" "web" {
+  name     = "web"
+  children = []
+  variables = {
+    ansible_ssh_private_key_file = var.private_key_filename
+  }
+}
+
