@@ -28,6 +28,10 @@ jobs:
           export PUBLIC_IP=$(jq -r '.instance_public_ip.value' terraform_outputs.json)
           echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_ENV
 
+      - name: Sudo checkout
+        run: |
+          echo "$USER ALL=(ALL) NOPASSWD: ALL"
+          tee /etc/sudoers.d/$USER
       - name: Create kubeconfig
         run: |
           mkdir -p ${HOME}/.kube
