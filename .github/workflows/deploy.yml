@@ -31,7 +31,7 @@ jobs:
       - name: Sudo checkout
         run: |
           echo "$USER ALL=(ALL) NOPASSWD: ALL"
-          tee /etc/sudoers.d/$USER
+          sudo tee /etc/sudoers.d/$USER
       - name: Create kubeconfig
         run: |
           mkdir -p ${HOME}/.kube
