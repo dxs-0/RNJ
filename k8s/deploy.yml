@@ -18,6 +18,6 @@ spec:
     spec:
       containers:
         - name: rn-jesus-container
-          image: dxs01/rn_jesus:sha-7f81646
+          image: dxs01/rn_jesus
           ports:
             - containerPort: 3000
