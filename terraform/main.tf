@@ -63,4 +63,3 @@ resource "ansible_group" "web" {
     ansible_ssh_private_key_file = var.private_key_filename
   }
 }
-
