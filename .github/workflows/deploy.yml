@@ -60,5 +60,5 @@ jobs:
           namespace: rn-jesus
           deployment: www
           container: rn-jesus-server
-          image: my/image:${{ github.sha }}
+          image: dxs01/rn_jesus:${{ github.sha }}
           token: ${{ secrets.GITHUB_TOKEN }}
