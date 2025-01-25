@@ -41,7 +41,10 @@ jobs:
       - name: Replace Public IP in Ingress Manifest
         run: |
           sed -i "s/\${PUBLIC_IP}/$PUBLIC_IP/g" k8s/ingress.yml
-
+      - name: Debug KUBECONFIG
+        run: |
+          echo $KUBECONFIG
+          cat $KUBECONFIG
       - name: Service manifest
         env:
           KUBECONFIG: ${{ env.KUBECONFIG }}
