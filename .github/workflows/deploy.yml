@@ -46,7 +46,7 @@ jobs:
         env:
           KUBECONFIG: ${{ env.KUBECONFIG }}
         run: |
-          kubectl apply -f k8s/service.yml
+          kubectl apply -f k8s/service.yml --validate=false
           kubectl get nodes -v=10
       - name: Deployment manifest
         run: |
