@@ -172,4 +172,4 @@ get_nodes.yml
 vars.yml
 terraform_outputs.json
 
-service-account-token.yml
+#service-account-token.yml
