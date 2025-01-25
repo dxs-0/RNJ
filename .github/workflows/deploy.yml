@@ -36,11 +36,7 @@ jobs:
         run: |
           sed -i "s/\${PUBLIC_IP}/$PUBLIC_IP/g" k8s/ingress.yml
 
-      #     - name: Set up kubectl
-      # uses: azure/setup-kubectl@v3
-      #  with:
-      # kubectl-version: "v1.28.2"
-
+      # Make sure kubectl setup is done before using it
       - name: Test
         run: |
           mkdir $HOME/.kube
@@ -62,6 +58,7 @@ jobs:
         env:
           PUBLIC_IP: ${{ env.PUBLIC_IP }}
 
+      # Deploy to Kubernetes using kubectl
       - name: Set up kubectl
         uses: Consensys/kubernetes-action@master
         env:
