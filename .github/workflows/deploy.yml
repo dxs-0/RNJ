@@ -40,9 +40,6 @@ jobs:
         run: |
           sed -i "s/\${PUBLIC_IP}/$PUBLIC_IP/g" k8s/ingress.yml
 
-      - name: ingress
-        run: |
-          kubectl apply -f k8s/ingress.yml
       - name: service
         run: |
           kubectl apply -f k8s/service.yml
@@ -50,3 +47,6 @@ jobs:
       - name: deploy
         run: |
           kubectl apply -f k8s/deploy.yml
+      - name: ingress
+        run: |
+          kubectl apply -f k8s/ingress.yml
