@@ -33,9 +33,10 @@ jobs:
           echo "$(whoami) ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers
       - name: Create kubeconfig
         run: |
-          sudo mkdir ${HOME}/.kube
-          sudo echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > ${HOME}/.kube/config
-          sudo cat ${HOME}/.kube/config
+              mkdir -p $HOME/.kube
+              cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+              chown $(id -u):$(id -g) $HOME/.kube/config
+              cat ${HOME}/.kube/config
       - name: Replace Public IP in Ingress Manifest
         run: |
           sed -i "s/\${PUBLIC_IP}/$PUBLIC_IP/g" k8s/ingress.yml
