@@ -29,9 +29,9 @@ jobs:
           echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_ENV
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Sudo checkout
-        run: |
-          echo ubuntu  ALL=(ALL) "NOPASSWD:ALL" | sudo tee -a /etc/sudoers
+      # - name: Sudo checkout
+      #  run: |
+      #         echo ubuntu  ALL=(ALL) "NOPASSWD:ALL" | sudo tee -a /etc/sudoers
       - name: Create kubeconfig
         run: |
           mkdir -p home/ubuntu/.kube
