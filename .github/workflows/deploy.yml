@@ -63,11 +63,10 @@ jobs:
           PUBLIC_IP: ${{ env.PUBLIC_IP }}
 
       - name: Set up kubectl
-        uses: kubernetes-actions/kubectl@v2
-        with:
+        uses: Consensys/kubernetes-action@master
+        env:
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
-
-      - name: Deploy to Kubernetes
-        run: |
-          kubectl apply -f k8s/deployment.yaml
-          kubectl apply -f k8s/service.yaml
+        with:
+          args: |
+            apply -f k8s/deployment.yaml
+            apply -f k8s/service.yaml
