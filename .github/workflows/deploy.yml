@@ -40,12 +40,6 @@ jobs:
         run: |
           sed -i "s/\${PUBLIC_IP}/$PUBLIC_IP/g" k8s/ingress.yml
 
-      - name: Create context
-        run: |
-          kubectl config set-context rn-jesus-context --cluster=your-cluster-rn-jesus --user=jesus --namespace=rn-jesus
-
-      - name: Use context
-        run: sudo kubectl config use-context rn-jesus-context
       - name: restart
         run: |
           sudo systemctl restart k3s
