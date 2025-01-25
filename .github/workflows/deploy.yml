@@ -61,10 +61,6 @@ jobs:
       # Deploy to Kubernetes using kubectl
       - name: Deploy to Kubernetes
         run: |
-          #kubectl apply -f k8s/service-account.yaml
-          #kubectl apply -f k8s/cluster-roles.yaml
-          #kubectl apply -f k8s/cluster-role-binding.yaml
-          #kubectl apply -f k8s/service-account-token.yaml
           kubectl apply -f k8s/deployment.yaml
           kubectl apply -f k8s/service.yaml
           kubectl apply -f k8s/ingress.yml
