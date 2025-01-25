@@ -21,6 +21,10 @@
           - python3
           - python3-pip
           - python3-kubernetes
+          - gcc
+          - curl
+          - libffi-dev
+          - python3-dev
         state: present
 
     - name: Ensure the ubuntu user is in the sudo group
@@ -35,6 +39,12 @@
     - name: Set public_ip fact from terraform outputs
       set_fact:
         public_ip: "{{ terraform_outputs.instance_public_ip.value }}"
+
+    - name: Install pip dependencies
+      pip:
+        name: awscli
+        state: present
+        extra_args: --break-system-packages
 
     - name: Install K3s on the node
       shell: |
