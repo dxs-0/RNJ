@@ -57,10 +57,19 @@ jobs:
           kubectl config use-context my-context
         env:
           PUBLIC_IP: ${{ env.PUBLIC_IP }}
+      - name: Set the Kubernetes context
+        uses: azure/k8s-set-context@v4
+        with:
+          method: service-account
+          k8s-url: ${{ $PUBLIC_IP:6443 }}
+          k8s-secret: ${{ secrets.KUBE_TOKEN }}
 
-      # Deploy to Kubernetes using kubectl
-      - name: Deploy to Kubernetes
-        run: |
-          kubectl apply -f k8s/deployment.yaml
-          kubectl apply -f k8s/service.yaml
-          kubectl apply -f k8s/ingress.yml
+      - name: Deploy to the Kubernetes cluster
+        uses: azure/k8s-deploy@v5
+        with:
+          pull-images: false
+          namespace: getactions
+          manifests: |
+            k8s/
+          images: |
+            dxs01/rn_jesus:latest :
