@@ -36,6 +36,8 @@ jobs:
         run: |
           sed -i "s/\${PUBLIC_IP}/$PUBLIC_IP/g" k8s/ingress.yml
 
+      - name: Act as local admin
+        run: sudo su ubuntu
       # Make sure kubectl setup is done before using it
       - name: Test
         run: |
