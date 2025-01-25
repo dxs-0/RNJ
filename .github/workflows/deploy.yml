@@ -28,10 +28,10 @@ jobs:
           aws s3 cp s3://rnj-bucket/terraform_outputs.json ./terraform_outputs.json
       - name: Test
         run: |
-          mkdir ${HOME}/.kube
-          echo ${{ secrets.KUBE_CONFIG }}  > ${HOME}/.kube/config  #I COMPLETELY FORGOT ABOUT THE GHactions secret !!
-          cat ${HOME}/.kube/config
-
+          echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
+          export KUBECONFIG=$HOME/.kube/config
+          echo "KUBECONFIG=$HOME/.kube/config" >> $GITHUB_ENV
       - name: Read the public IP
         run: |
           export PUBLIC_IP=$(jq -r '.instance_public_ip.value' terraform_outputs.json)
