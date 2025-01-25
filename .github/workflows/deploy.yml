@@ -50,6 +50,10 @@ jobs:
           export KUBECONFIG=$HOME/.kube/config
           echo "KUBECONFIG=$HOME/.kube/config" >> $GITHUB_ENV
 
+      - name: Update Kubeconf API
+        run: |
+          sed -i "s/127.0.0.1:6443/$PUBLIC_IP:6443/g" $HOME/.kube/config
+
       - name: Deploy to Kubernetes
         uses: firehed/deploy-to-kubernetes-action@v0.3.0
         with:
