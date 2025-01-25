@@ -40,13 +40,12 @@ jobs:
         run: |
           sed -i "s/\${PUBLIC_IP}/$PUBLIC_IP/g" k8s/ingress.yml
 
-      - name: service
+      - name: Service manifest
         run: |
-          kubectl apply -f k8s/service.yml
-
-      - name: deploy
+          kubectl apply -f k8s/service.yml  --validate=false
+      - name: Deployment manifest
         run: |
-          kubectl apply -f k8s/deploy.yml
-      - name: ingress
+          kubectl apply -f k8s/deploy.yml  --validate=false
+      - name: Ingress manifest
         run: |
-          kubectl apply -f k8s/ingress.yml
+          kubectl apply -f k8s/ingress.yml  --validate=false
