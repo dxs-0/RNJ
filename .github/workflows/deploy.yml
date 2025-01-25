@@ -42,6 +42,8 @@ jobs:
           sed -i "s/\${PUBLIC_IP}/$PUBLIC_IP/g" k8s/ingress.yml
 
       - name: Service manifest
+        env:
+          KUBECONFIG: ${{ env.KUBECONFIG }}
         run: |
           sudo kubectl apply -f k8s/service.yml --validate=false
       - name: Deployment manifest
