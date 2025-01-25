@@ -43,7 +43,7 @@ jobs:
 
       - name: Service manifest
         env:
-          KUBECONFIG: ${{ env.KUBECONFIG }}
+          KUBECONFIG: ${{ secrets.KUBE_CONFIG }}
         run: |
           sudo kubectl apply -f k8s/service.yml --validate=false
       - name: Deployment manifest
