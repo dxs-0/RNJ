@@ -2,11 +2,11 @@
   "instance_id": {
     "sensitive": false,
     "type": "string",
-    "value": "i-01cbc1a882b80df78"
+    "value": "i-0da7440578a2ec2d5"
   },
   "instance_public_ip": {
     "sensitive": false,
     "type": "string",
-    "value": "18.196.128.227"
+    "value": "18.197.155.165"
   }
 }

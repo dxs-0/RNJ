@@ -32,4 +32,36 @@
         content: |
           [ec2_node]
           {{ ec2_host }} ansible_user=ubuntu ansible_ssh_private_key_file=/home/dxs01/finalSolution/terraform/my_key_pair.pem
-        dest: "/home/dxs01/finalSolution/ansible_playbooks/inventory"
+        dest: "{{ temp_inventory }}"
+
+- name: Edit Kubernetes Ingress for new EC2 ec2_host
+  hosts: localhost
+  gather_facts: no
+  vars:
+    ingress_template: "/home/dxs01/finalSolution/k8s/ingress.yml.j2"
+    ingress_manifest: "/home/dxs01/finalSolution/k8s/ingress.yml"
+    terraform_dir: "/home/dxs01/finalSolution/terraform"
+
+  tasks:
+    - name: Fetch Terraform output
+      command: terraform output -json
+      args:
+        chdir: "{{ terraform_dir }}"
+      register: tf_output
+
+    - name: Set public DNS fact
+      set_fact:
+        ec2_host: "{{ tf_output.stdout | from_json | json_query('instance_public_dns.value') }}"
+      when: tf_output.stdout != "{}"
+
+    - name: Fail if public DNS is not set
+      fail:
+        msg: "Public DNS not found in Terraform output."
+      when: ec2_host == ""
+
+    - name: Generate ingress manifest from template
+      template:
+        src: "{{ ingress_template }}"
+        dest: "{{ ingress_manifest }}"
+      vars:
+        PUBLIC_IP: "{{ ec2_host }}"
