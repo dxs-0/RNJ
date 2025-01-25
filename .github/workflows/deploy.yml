@@ -24,13 +24,9 @@ jobs:
           aws s3 cp s3://rnj-bucket/terraform_outputs.json ./terraform_outputs.json
       - name: Test
         run: |
-          sudo chmod 644 /etc/rancher/k3s/k3s.yaml
-          sudo chown $(whoami) /etc/rancher/k3s/k3s.yaml
-          mkdir -p $HOME/.kube
-          echo  /etc/rancher/k3s/k3s.yaml > $HOME/.kube/config
-          chmod 600 $HOME/.kube/config
-          export KUBECONFIG=$HOME/.kube/config
-          echo "KUBECONFIG=$HOME/.kube/config" >> $GITHUB_ENV
+          mkdir ${HOME}/.kube
+          echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > ${HOME}/.kube/config
+          cat ${HOME}/.kube/config
 
       - name: Read the public IP
         run: |
