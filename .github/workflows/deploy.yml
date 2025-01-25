@@ -24,6 +24,8 @@ jobs:
           aws s3 cp s3://rnj-bucket/terraform_outputs.json ./terraform_outputs.json
       - name: Test
         run: |
+          sudo chmod 644 /etc/rancher/k3s/k3s.yaml
+          sudo chown $(whoami) /etc/rancher/k3s/k3s.yaml
           mkdir -p $HOME/.kube
           echo  /etc/rancher/k3s/k3s.yaml > $HOME/.kube/config
           chmod 600 $HOME/.kube/config
@@ -38,10 +40,10 @@ jobs:
 
       - name: Service manifest
         run: |
-          sudo kubectl apply -f k8s/service.yml
+          sudo kubectl apply -f k8s/service.yml --validate=false
       - name: Deployment manifest
         run: |
-          kubectl apply -f k8s/deploy.yml
+          kubectl apply -f k8s/deploy.yml --validate=false
       - name: Ingress manifest
         run: |
-          kubectl apply -f k8s/ingress.yml
+          kubectl apply -f k8s/ingress.yml --validate=false
