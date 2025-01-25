@@ -4,6 +4,10 @@ on:
   push:
     branches: [main, Testing]
 
+permissions:
+  actions: write
+  contents: read
+
 jobs:
   deploy:
     name: Deploy to Kubernetes
