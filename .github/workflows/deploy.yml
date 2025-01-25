@@ -36,7 +36,7 @@ jobs:
 
       - name: Service manifest
         run: |
-          kubectl apply -f k8s/service.yml
+          sudo kubectl apply -f k8s/service.yml
       - name: Deployment manifest
         run: |
           kubectl apply -f k8s/deploy.yml
