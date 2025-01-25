@@ -74,3 +74,4 @@
       lineinfile:
         path: /home/ubuntu/.bashrc
         line: "export KUBECONFIG=/home/ubuntu/.kube/config"
+      delegate_to: "{{ inventory_hostname }}"
