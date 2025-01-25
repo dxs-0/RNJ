@@ -25,7 +25,7 @@ jobs:
       - name: Test
         run: |
           mkdir ${HOME}/.kube
-          echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > ${HOME}/.kube/config
+          echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > ${HOME}/.kube/config  #I COMPLETELY FORGOT ABOUT THE GHactions secret !!
           cat ${HOME}/.kube/config
 
       - name: Read the public IP
