@@ -45,7 +45,7 @@ jobs:
         run: |
           mkdir $HOME/.kube
           echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > $HOME/.kube/config
-          sed -i "s/<EXTERNAL_IP>/$PUBLIC_IP/g" $HOME/.kube/config
+          sed -i "s/127.0.0.1:6443/$PUBLIC_IP:6443/g" $HOME/.kube/config
           chmod 600 $HOME/.kube/config
           export KUBECONFIG=$HOME/.kube/config
           echo "KUBECONFIG=$HOME/.kube/config" >> $GITHUB_ENV
