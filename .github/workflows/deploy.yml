@@ -59,11 +59,4 @@ jobs:
           PUBLIC_IP: ${{ env.PUBLIC_IP }}
 
       - name: Deploy to the Kubernetes cluster
-        uses: azure/k8s-deploy@v5
-        with:
-          pull-images: false
-          namespace: rn-jesus
-          manifests: |
-            k8s/
-          images: |
-            dxs01/rn_jesus:latest
+        run: kubectl apply -f k8s/
