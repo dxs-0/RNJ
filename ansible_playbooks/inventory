@@ -1,2 +1,2 @@
 [ec2_node]
-52.29.8.175 ansible_user=ubuntu ansible_ssh_private_key_file=/home/dxs01/finalSolution/terraform/my_key_pair.pem
+35.156.240.37 ansible_user=ubuntu ansible_ssh_private_key_file=/home/dxs01/finalSolution/terraform/my_key_pair.pem
