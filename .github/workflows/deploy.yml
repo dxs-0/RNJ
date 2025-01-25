@@ -26,6 +26,11 @@ jobs:
       - name: Download public IP from S3
         run: |
           aws s3 cp s3://rnj-bucket/terraform_outputs.json ./terraform_outputs.json
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          kubectl-version: "v1.28.2"
       - name: Test
         run: |
           mkdir $HOME/.kube
