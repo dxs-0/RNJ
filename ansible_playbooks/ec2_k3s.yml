@@ -28,9 +28,17 @@
         name: ubuntu
         groups: sudo
         append: yes
+    - name: Read the terraform outputs file
+      set_fact:
+        terraform_outputs: "{{ lookup('file', '/home/dxs01/finalSolution/terraform/terraform_outputs.json') | from_json }}"
+
+    - name: Set public_ip fact from terraform outputs
+      set_fact:
+        public_ip: "{{ terraform_outputs.instance_public_ip.value }}"
 
     - name: Install K3s on the node
-      shell: "curl -sfL https://get.k3s.io | sh -"
+      shell: |
+        curl -sfL https://get.k3s.io | K3S_KUBECONFIG_MODE="644" INSTALL_K3S_EXEC="--node-ip={{ public_ip }} --tls-san={{ public_ip }}" sh -
       register: k3s_install
       delegate_to: "{{ inventory_hostname }}"
       vars:
@@ -74,4 +82,5 @@
       lineinfile:
         path: /home/ubuntu/.bashrc
         line: "export KUBECONFIG=/home/ubuntu/.kube/config"
+        create: yes
       delegate_to: "{{ inventory_hostname }}"
