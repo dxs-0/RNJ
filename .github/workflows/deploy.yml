@@ -29,6 +29,9 @@ jobs:
           mkdir -p $HOME/.kube
           echo  /etc/rancher/k3s/k3s.yaml > $HOME/.kube/config
           chmod 600 $HOME/.kube/config
+          export KUBECONFIG=$HOME/.kube/config
+          echo "KUBECONFIG=$HOME/.kube/config" >> $GITHUB_ENV
+
       - name: Read the public IP
         run: |
           export PUBLIC_IP=$(jq -r '.instance_public_ip.value' terraform_outputs.json)
