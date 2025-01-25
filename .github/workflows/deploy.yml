@@ -43,7 +43,7 @@ jobs:
 
       - name: Service manifest
         env:
-          KUBECONFIG: ${{ secrets.KUBE_CONFIG }}
+          KUBECONFIG: ${{ env.KUBECONFIG }}
         run: |
           kubectl apply -f k8s/service.yml
           kubectl get nodes -v=10
