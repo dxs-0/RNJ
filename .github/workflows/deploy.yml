@@ -59,11 +59,12 @@ jobs:
           PUBLIC_IP: ${{ env.PUBLIC_IP }}
 
       # Deploy to Kubernetes using kubectl
-      - name: Set up kubectl
-        uses: Consensys/kubernetes-action@master
-        env:
-          kubeconfig: ${{ secrets.KUBE_CONFIG }}
-        with:
-          args: |
-            apply -f k8s/deployment.yaml
-            apply -f k8s/service.yaml
+      - name: Deploy to Kubernetes
+        run: |
+          #kubectl apply -f k8s/service-account.yaml
+          #kubectl apply -f k8s/cluster-roles.yaml
+          #kubectl apply -f k8s/cluster-role-binding.yaml
+          #kubectl apply -f k8s/service-account-token.yaml
+          kubectl apply -f k8s/deployment.yaml
+          kubectl apply -f k8s/service.yaml
+          kubectl apply -f k8s/ingress.yml
