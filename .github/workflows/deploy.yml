@@ -47,8 +47,8 @@ jobs:
 
       - name: Deploy manifests
         run: |
-          kubectl apply --insecure-skip-tls-verify -f k8s/deploy.yml
-          kubectl apply --insecure-skip-tls-verify -f k8s/ingress.yml
-          kubectl apply --insecure-skip-tls-verify -f k8s/service.yml
+          kubectl apply --insecure-skip-tls-verify  --server=https://$PUBLIC_IP:6443 -f k8s/deploy.yml
+          kubectl apply --insecure-skip-tls-verify  --server=https://$PUBLIC_IP:6443 -f k8s/ingress.yml
+          kubectl apply --insecure-skip-tls-verify  --server=https://$PUBLIC_IP:6443 -f k8s/service.yml
         env:
           KUBECONFIG: $HOME/.kube/config
