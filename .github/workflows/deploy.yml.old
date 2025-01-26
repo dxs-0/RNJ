@@ -65,3 +65,13 @@ jobs:
 
       - name: Deploy to the Kubernetes cluster
         run: kubectl apply -f k8s/
+
+      - name: Deploy to the Kubernetes cluster
+        uses: azure/k8s-deploy@v5
+        with:
+          action: deploy
+          manifests: k8s/
+          images: |
+            dxs01/rn_jesus:${{ github.sha  }}
+          imagepullsecrets: |
+            DOCKER_PASSWORD

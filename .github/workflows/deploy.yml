@@ -45,12 +45,10 @@ jobs:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBECONFIG }}
 
-      - name: Deploy to the Kubernetes cluster
-        uses: azure/k8s-deploy@v5
-        with:
-          action: deploy
-          manifests: k8s/
-          images: |
-            dxs01/rn_jesus:${{ github.sha  }}
-          imagepullsecrets: |
-            DOCKER_PASSWORD
+      - name: Deploy manifests
+        run: |
+          kubectl apply --insecure-skip-tls-verify -f k8s/deploy.yml
+          kubectl apply --insecure-skip-tls-verify -f k8s/ingress.yml
+          kubectl apply --insecure-skip-tls-verify -f k8s/service.yml
+        env:
+          KUBECONFIG: $HOME/.kube/config
