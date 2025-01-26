@@ -55,6 +55,7 @@ jobs:
           kubectl config set-cluster my-cluster --server=https://$PUBLIC_IP:6443 --insecure-skip-tls-verify=true
           kubectl config set-context my-context --cluster=my-cluster --user=my-user
           kubectl config use-context my-context
+          kubectl create namespace rn-jesus
         env:
           PUBLIC_IP: ${{ env.PUBLIC_IP }}
 
