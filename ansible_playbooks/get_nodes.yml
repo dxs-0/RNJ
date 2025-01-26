@@ -34,12 +34,14 @@
           {{ ec2_host }} ansible_user=ubuntu ansible_ssh_private_key_file=/home/dxs01/finalSolution/terraform/my_key_pair.pem
         dest: "{{ temp_inventory }}"
 
-- name: Edit Kubernetes Ingress for new EC2 ec2_host
+- name: Edit Kubernetes manifests for new EC2 ec2_host
   hosts: localhost
   gather_facts: no
   vars:
     ingress_template: "/home/dxs01/finalSolution/k8s/ingress.yml.j2"
     ingress_manifest: "/home/dxs01/finalSolution/k8s/ingress.yml"
+    service_manifest: "/home/dxs01/finalSolution/k8s/service.yml"
+    service_template: "/home/dxs01/finalSolution/k8s/service.yml.j2"
     terraform_dir: "/home/dxs01/finalSolution/terraform"
 
   tasks:
@@ -65,3 +67,10 @@
         dest: "{{ ingress_manifest }}"
       vars:
         PUBLIC_IP: "{{ ec2_host }}"
+
+    - name: Generate sevice manifest from template
+      template:
+        src: "{{ service_template }}"
+        dest: "{{ service_manifest }}"
+      vars:
+        public_ip: "{{ ec2_host }}"
