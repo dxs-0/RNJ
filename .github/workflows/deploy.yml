@@ -36,8 +36,6 @@ jobs:
         run: |
           sed -i "s/\${PUBLIC_IP}/$PUBLIC_IP/g" k8s/ingress.yml
 
-      - name: Act as local admin
-        run: sudo su ubuntu
       # Make sure kubectl setup is done before using it
       - name: Test
         run: |
@@ -51,6 +49,11 @@ jobs:
       - name: Update Kubeconf API
         run: |
           sed -i "s/127.0.0.1:6443/$PUBLIC_IP:6443/g" $HOME/.kube/config
+
+      - name: Set up Kubectl
+        uses: azure/k8s-set-context@v1
+        with:
+          kubeconfig: ${{ secrets.KUBECONFIG }
 
       - name: Configure kubectl to skip TLS verification
         run: |
