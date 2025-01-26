@@ -23,23 +23,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Download public IP from S3
-        run: |
-          aws s3 cp s3://rnj-bucket/terraform_outputs.json ./terraform_outputs.json
-
-      - name: Read the public IP
-        run: |
-          export PUBLIC_IP=$(jq -r '.instance_public_ip.value' terraform_outputs.json)
-          echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_ENV
-
-      - name: Replace Public IP in Ingress Manifest
-        run: |
-          sed -i "s/\${PUBLIC_IP}/$PUBLIC_IP/g" k8s/ingress.yml
-
-      - name: Replace Public IP in Service Manifest
-        run: |
-          sed -i "s/\${PUBLIC_IP}/$PUBLIC_IP/g" k8s/service.yml
-
       - name: Configure AWS CLI output to JSON
         run: aws configure set output json
 

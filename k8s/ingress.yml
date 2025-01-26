@@ -7,7 +7,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: "18.197.155.165"
+    - host: "ec2-18-197-155-165.eu-central-1.compute.amazonaws.com"
       http:
         paths:
           - path: /

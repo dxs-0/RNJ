@@ -53,20 +53,20 @@
 
     - name: Set public DNS fact
       set_fact:
-        ec2_host: "{{ tf_output.stdout | from_json | json_query('instance_public_dns.value') }}"
+        ec2_hostname: "{{ tf_output.stdout | from_json | json_query('instance_public_dns.value') }}"
       when: tf_output.stdout != "{}"
 
     - name: Fail if public DNS is not set
       fail:
         msg: "Public DNS not found in Terraform output."
-      when: ec2_host == ""
+      when: ec2_hostname == ""
 
     - name: Generate ingress manifest from template
       template:
         src: "{{ ingress_template }}"
         dest: "{{ ingress_manifest }}"
       vars:
-        PUBLIC_IP: "{{ ec2_host_ip }}"
+        PUBLIC_IP: "{{ ec2_hostname }}"
       register: ingress_out
 
     - name: Generate sevice manifest from template
