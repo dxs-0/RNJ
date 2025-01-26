@@ -36,6 +36,10 @@ jobs:
         run: |
           sed -i "s/\${PUBLIC_IP}/$PUBLIC_IP/g" k8s/ingress.yml
 
+      - name: Replace Public IP in Service Manifest
+        run: |
+          sed -i "s/\${PUBLIC_IP}/$PUBLIC_IP/g" k8s/service.yml
+
       - name: Configure AWS CLI output to JSON
         run: aws configure set output json
 
