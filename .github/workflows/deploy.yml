@@ -54,7 +54,10 @@ jobs:
         uses: azure/k8s-deploy@v5
         with:
           action: deploy
-          manifests: k8s/
+          manifests: |
+            k8s/deploy.yml
+            k8s/ingress.yml
+            k8s.service.yml
           images: |
             dxs01/rn_jesus:${{ env.LATEST_SHA }}
           imagepullsecrets: |
