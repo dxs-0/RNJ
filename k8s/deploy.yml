@@ -17,7 +17,7 @@ spec:
         app: rn-jesus
     spec:
       containers:
-        - image: dxs01/rn_jesus
+        - image: dxs01/rn_jesus:latest
           name: rn-jesus-container
           ports:
             - containerPort: 3000
