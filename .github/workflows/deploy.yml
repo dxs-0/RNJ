@@ -36,18 +36,13 @@ jobs:
         run: |
           sed -i "s/\${PUBLIC_IP}/$PUBLIC_IP/g" k8s/ingress.yml
 
-      - name: Test
-        run: |
-          mkdir $HOME/.kube
-          echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > $HOME/.kube/config
-          sed -i "s/127.0.0.1:6443/$PUBLIC_IP:6443/g" $HOME/.kube/config
-          chmod 600 $HOME/.kube/config
-          export KUBECONFIG=$HOME/.kube/config
-          echo "KUBECONFIG=$HOME/.kube/config" >> $GITHUB_ENV
+      - name: Configure AWS CLI output to JSON
+        run: aws configure set output json
 
       - name: Set up Kubectl
         uses: azure/k8s-set-context@v3
         with:
+          method: kubeconfig
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
       - name: Deploy to the Kubernetes cluster
