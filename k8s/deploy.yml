@@ -2,10 +2,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rn-jesus-deploy
-  namespace: rn-jesus
   labels:
     app: rn-jesus
+  name: rn-jesus-deploy
+  namespace: rn-jesus
 spec:
   replicas: 1
   selector:
@@ -17,7 +17,7 @@ spec:
         app: rn-jesus
     spec:
       containers:
-        - name: rn-jesus-container
-          image: dxs01/rn_jesus
+        - image: dxs01/rn_jesus
+          name: rn-jesus-container
           ports:
             - containerPort: 3000
