@@ -50,11 +50,6 @@ jobs:
         run: |
           sed -i "s/127.0.0.1:6443/$PUBLIC_IP:6443/g" $HOME/.kube/config
 
-      - name: Set up Kubectl
-        uses: azure/k8s-set-context@v1
-        with:
-          kubeconfig: ${{ secrets.KUBE_CONFIG }}
-
       - name: Configure kubectl to skip TLS verification
         run: |
           kubectl config set-cluster my-cluster --server=https://$PUBLIC_IP:6443 --insecure-skip-tls-verify=true
@@ -62,6 +57,11 @@ jobs:
           kubectl config use-context my-context
         env:
           PUBLIC_IP: ${{ env.PUBLIC_IP }}
+
+      - name: Set up Kubectl
+        uses: azure/k8s-set-context@v1
+        with:
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
       - name: Deploy to the Kubernetes cluster
         run: kubectl apply -f k8s/
