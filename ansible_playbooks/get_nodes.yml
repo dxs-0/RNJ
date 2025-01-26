@@ -67,6 +67,7 @@
         dest: "{{ ingress_manifest }}"
       vars:
         PUBLIC_IP: "{{ ec2_host_ip }}"
+      register: ingress_out
 
     - name: Generate sevice manifest from template
       template:
@@ -74,3 +75,20 @@
         dest: "{{ service_manifest }}"
       vars:
         public_ip: "{{ ec2_host_ip }}"
+      register: service_out
+
+    - name: Output check for service manifest
+      shell: cat "{{ service_manifest }}"
+      register: service_output
+
+    - name: Display service manifest output
+      debug:
+        var: service_output.stdout
+
+    - name: Output check for ingress manifest
+      shell: cat "{{ ingress_manifest }}"
+      register: ingress_output
+
+    - name: Display ingress manifest output
+      debug:
+        var: ingress_output.stdout

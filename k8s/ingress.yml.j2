@@ -7,7 +7,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: "{{ PUBLIC_IP }}.compute.amazonaws.com"
+    - host: "{{ PUBLIC_IP }}"
       http:
         paths:
           - path: /
