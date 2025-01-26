@@ -15,23 +15,23 @@
 
     - name: Set public IP fact
       set_fact:
-        ec2_host: "{{ tf_output.stdout | from_json | json_query('instance_public_ip.value') }}"
+        ec2_host_ip: "{{ tf_output.stdout | from_json | json_query('instance_public_ip.value') }}"
       when: tf_output.stdout != "{}"
 
     - name: Fail if public IP is not set
       fail:
         msg: "Public IP not found in Terraform output."
-      when: ec2_host == ""
+      when: ec2_host_ip == ""
 
     - name: Save ec2_host as a global fact
       set_fact:
-        ansible_global_host: "{{ ec2_host }}"
+        ansible_global_host: "{{ ec2_host_ip }}"
 
     - name: Create temporary inventory file
       copy:
         content: |
           [ec2_node]
-          {{ ec2_host }} ansible_user=ubuntu ansible_ssh_private_key_file=/home/dxs01/finalSolution/terraform/my_key_pair.pem
+          {{ ec2_host_ip }} ansible_user=ubuntu ansible_ssh_private_key_file=/home/dxs01/finalSolution/terraform/my_key_pair.pem
         dest: "{{ temp_inventory }}"
 
 - name: Edit Kubernetes manifests for new EC2 ec2_host
@@ -73,4 +73,4 @@
         src: "{{ service_template }}"
         dest: "{{ service_manifest }}"
       vars:
-        public_ip: "{{ ec2_host }}"
+        public_ip: "{{ ec2_host_ip }}"
