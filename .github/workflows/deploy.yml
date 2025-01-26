@@ -37,13 +37,9 @@ jobs:
           sed -i "s/\${PUBLIC_IP}/$PUBLIC_IP/g" k8s/ingress.yml
 
       - name: Set up Kubectl
-        uses: azure/k8s-set-context@v1
+        uses: azure/k8s-set-context@v3
         with:
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
-
-      - name: Debug Kubeconfig
-
-        run: cat $HOME/.kube/config
 
       - name: Deploy to the Kubernetes cluster
         uses: azure/k8s-deploy@v5
