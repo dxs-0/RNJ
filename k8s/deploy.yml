@@ -21,3 +21,5 @@ spec:
           name: rn-jesus-container
           ports:
             - containerPort: 3000
+          imagePullSecrets:
+            -name: myregistrykey
