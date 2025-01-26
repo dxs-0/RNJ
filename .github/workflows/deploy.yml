@@ -26,6 +26,10 @@ jobs:
       - name: Configure AWS CLI output to JSON
         run: aws configure set output json
 
+      - name: Create namespace
+        run: |
+          kubectl create namespace rn-jesus
+
       - name: Set up Kubectl
         uses: azure/k8s-set-context@v3
         with:
