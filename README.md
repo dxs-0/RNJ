@@ -6,4 +6,4 @@ The webapp has been made following trunk-based development methodology and is de
 
 For more information, please check the [documentation](./docs/documentation.md).
 
-![alt text](https://github.com/dxs-0/RNJ/blob/main/docs/jesus.PNG) "Jesus will roll for you")
+![alt text](https://github.com/dxs-0/RNJ/blob/main/docs/jesus.PNG) 
