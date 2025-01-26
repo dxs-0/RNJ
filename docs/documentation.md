@@ -4,7 +4,7 @@ This documentation explains the steps involved in the deployment pipeline, inclu
 
 The infrastructure flow is loosely coupled with a few manual tasks (Terraform, Ansible, and secrets integration to GitHub Actions), while the rest is handled by CI/CD pipelines. It follows a GitLab branching strategy where changes are made to the Testing branch and then deployed on Main.
 
-Since AWS free tier is in use, the deployment is minimal. However, this is merely a testbed for future deployment of a more complex and scalable application. With this in mind, some of the files reference locations on localhost, which should be changed to S3 storage. Further improvements include:
+Since AWS free tier is in use, the deployment is minimal. However, this is merely a testbed for future deployment of a more complex and scalable application. With this in mind, some of the files reference locations on localhost, which should be changed to S3 storage. Future improvements include:
 
 - **TLS via Let's Encrypt**: Implementing TLS certificates for secure communication using Let's Encrypt.
 - **HTTPS Support**: Enabling HTTPS support for secure web traffic.
