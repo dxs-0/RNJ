@@ -38,4 +38,3 @@ Step 3: Fetch Kubeconfig and Secrets This step involves fetching the Kubernetes 
 TLS via Let's Encrypt: Implementing TLS certificates for secure communication using Let's Encrypt.
 HTTPS Support: Enabling HTTPS support for secure web traffic.
 Slack Notifications: Setting up Slack notifications to alert about deployment statuses.
-By following these steps, you can ensure a smooth and automated deployment process. If you have any questions or need further assistance, feel free to ask!
