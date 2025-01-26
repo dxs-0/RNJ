@@ -4,7 +4,7 @@ name: GitHub Actions rn_jesus
 on:
   push:
     branches:
-      - Testing
+      - main
   pull_request:
     types: [opened, synchronize, reopened]
 
