@@ -56,7 +56,7 @@ jobs:
           action: deploy
           manifests: k8s/
           images: |
-            dxs01/rn_jesus
+            dxs01/rn_jesus@sha256:${{ env.LATEST_SHA }}
           imagepullsecrets: |
             DOCKER_PASSWORD
           namespace: rn-jesus
