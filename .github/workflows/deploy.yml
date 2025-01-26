@@ -47,7 +47,7 @@ jobs:
 
       - name: Get latest image SHA256 digest
         run: |
-          export LATEST_SHA=$(curl -s https://registry.hub.docker.com/v2/repositories/dxs01/rn_jesus/tags/latest | jq -r '.images[0].digest')
+          export LATEST_SHA=$(curl -s https://registry.hub.docker.com/v2/repositories/dxs01/rn_jesus/tags | jq -r '.results[0].name')
           echo "LATEST_SHA=$LATEST_SHA" >> $GITHUB_ENV
 
       - name: Deploy to the Kubernetes cluster
