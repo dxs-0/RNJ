@@ -1,0 +1,41 @@
+Deployment Pipeline Documentation
+This documentation explains the steps involved in the deployment pipeline, including Terraform initialization, planning, and application, as well as the use of Ansible playbooks for node and EC2 instance management. Additionally, it covers fetching Kubernetes configuration and secrets, with future plans for TLS via Let's Encrypt, HTTPS support, and Slack notifications.
+
+1. Terraform Initialization, Planning, and Application
+Step 1: Initialize Terraform
+
+terraform init
+This command initializes the Terraform configuration, setting up the backend and downloading the necessary provider plugins.
+
+Step 2: Plan Terraform Deployment
+
+terraform plan
+This command creates an execution plan, showing the changes that will be made to the infrastructure.
+
+Step 3: Apply Terraform Deployment
+
+terraform apply
+This command applies the changes required to reach the desired state of the configuration.
+
+Step 4: Output Terraform Results
+
+terraform output -json > terraform_outputs.json
+This command exports the Terraform output variables to a JSON file.
+
+Step 5: Upload Outputs to S3
+
+aws s3 cp terraform_outputs.json s3://rnj-bucket/terraform_outputs.json
+This command uploads the JSON file containing the Terraform outputs to an S3 bucket.
+
+2. Ansible Playbooks
+Step 1: Get Nodes Ansible Playbook This playbook retrieves information about the nodes in the infrastructure.
+
+Step 2: EC2 Ansible Playbook This playbook manages EC2 instances, including provisioning and configuration.
+
+Step 3: Fetch Kubeconfig and Secrets This step involves fetching the Kubernetes configuration file (kubeconfig) and any necessary secrets for cluster access.
+
+3. Future Enhancements
+TLS via Let's Encrypt: Implementing TLS certificates for secure communication using Let's Encrypt.
+HTTPS Support: Enabling HTTPS support for secure web traffic.
+Slack Notifications: Setting up Slack notifications to alert about deployment statuses.
+By following these steps, you can ensure a smooth and automated deployment process. If you have any questions or need further assistance, feel free to ask!
