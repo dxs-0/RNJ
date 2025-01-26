@@ -103,6 +103,10 @@ Since AWS free tier is in use, the deployment is minimal. However, this is merel
 
 └── terraform\_inventory.yml
 
+**Kubernetes Node**
+
+![alt text](https://github.com/dxs-0/RNJ/blob/main/docs/deployment.PNG) 
+
 **1. Terraform Initialization, Planning, and Application**
 
 **Step 1: Initialize Terraform**
