@@ -51,7 +51,7 @@ jobs:
           action: deploy
           manifests: k8s/
           images: |
-            dxs01/rn_jesus:${{ steps.latest-tag.outputs.tag  }}
+            dxs01/rn_jesus
           imagepullsecrets: |
             DOCKER_PASSWORD
           namespace: rn-jesus
