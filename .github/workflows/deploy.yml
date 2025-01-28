@@ -27,7 +27,7 @@ jobs:
         run: aws configure set output json
       - name: Download file from S3
         run: |
-          aws s3 cp s3://rnj-bucket/terraform_outputs.json ./terraform_outputs.json
+          aws s3 cp https://rnj-bucket.s3.eu-central-1.amazonaws.com/terraform_outputs.json ./terraform_outputs.json
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
