@@ -26,6 +26,17 @@ jobs:
       - name: Configure AWS CLI output to JSON
         run: aws configure set output json
 
+      - name: Read the public IP
+        run: |
+          export PUBLIC_IP=$(jq -r '.instance_public_ip.value' terraform_outputs.json)
+          echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_ENV
+
+      - name: Configure kubectl to skip TLS verification
+        run: |
+          kubectl config set-cluster my-cluster --server=https://$PUBLIC_IP:6443 --insecure-skip-tls-verify=true
+        env:
+          PUBLIC_IP: ${{ env.PUBLIC_IP }}
+
       - name: Set up Kubectl
         uses: azure/k8s-set-context@v3
         with:
