@@ -23,6 +23,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
+      - name: Download public IP from S3
+        run: |
+          aws s3 cp s3://rnj-bucket/terraform_outputs.json ./terraform_outputs.json
+
       - name: Configure AWS CLI output to JSON
         run: aws configure set output json
 

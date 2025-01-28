@@ -170,6 +170,6 @@ kubeconfig_base64.txt
 # ansible files that I don't care about or have sensitive 2025-01-25 00:48
 get_nodes.yml
 vars.yml
-terraform_outputs.json
+
 
 #service-account-token.yml

@@ -1,0 +1,17 @@
+{
+  "instance_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "i-02e8c080e38e63099"
+  },
+  "instance_public_dns": {
+    "sensitive": false,
+    "type": "string",
+    "value": "ec2-3-66-227-114.eu-central-1.compute.amazonaws.com"
+  },
+  "instance_public_ip": {
+    "sensitive": false,
+    "type": "string",
+    "value": "3.66.227.114"
+  }
+}
