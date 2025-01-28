@@ -60,4 +60,4 @@ jobs:
           imagepullsecrets: |
             DOCKER_PASSWORD
           namespace: rn-jesus
-          skip-tls-verify: false
+          skip-tls-verify: true
