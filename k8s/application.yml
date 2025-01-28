@@ -20,6 +20,6 @@ spec:
     syncOptions:
       - CreateNamespace=true
   annotations:
-    argocd-image-updater.argoproj.io/image-list: rn_jesus=dxs01/rn_jesus
-    argocd-image-updater.argoproj.io/rn_jesus.update-strategy: latest
+    argocd-image-updater.argoproj.io/image-list: rn_jesus=dxs01/rn_jesus:sha-1bd0d97
+    argocd-image-updater.argoproj.io/rn_jesus.update-strategy: digest
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-cred
