@@ -12,4 +12,4 @@ spec:
       targetPort: 3000
   type: LoadBalancer
   externalIPs:
-    - 3.66.227.114
+    - 94.155.224.15
