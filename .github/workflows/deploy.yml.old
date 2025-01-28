@@ -65,7 +65,7 @@ jobs:
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
       - name: Deploy to the Kubernetes cluster
-        run: kubectl apply -f k8s/
+        run: kubectl apply -f k8s/ --insecure-skip-tls-verify
 
       - name: Deploy to the Kubernetes cluster
         uses: azure/k8s-deploy@v5

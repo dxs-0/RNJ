@@ -63,6 +63,7 @@ jobs:
           imagepullsecrets: |
             DOCKER_PASSWORD
           namespace: rn-jesus
+          arguments: --insecure-skip-tls-verify
 
       - name: Slack notification
         uses: 8398a7/action-slack@v3
