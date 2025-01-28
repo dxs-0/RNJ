@@ -25,11 +25,14 @@ jobs:
 
       - name: Configure AWS CLI output to JSON
         run: aws configure set output json
-
-      - name: Download terraform_outputs.json from S3
-
+      - name: Download file from S3
         run: |
-          aws s3 cp s3://your-bucket-name/terraform_outputs.json  terraform_outputs.json
+          aws s3 cp s3://your-bucket-name/path/to/file ./local-path-to-save
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+
       - name: Read the public IP
         run: |
           export PUBLIC_IP=$(jq -r '.instance_public_ip.value' terraform_outputs.json)
