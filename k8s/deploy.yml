@@ -6,6 +6,9 @@ metadata:
     app: rn-jesus
   name: rn-jesus-deploy
   namespace: rn-jesus
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: dxs01/rn_jesus
+    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-cred
 spec:
   replicas: 1
   selector:
