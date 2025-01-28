@@ -33,13 +33,13 @@ jobs:
           terraform_version: 1.10.5
 
       - name: Terraform Init
-        run: terraform init ./terraform
+        run: terraform init -chdir=./terraform
 
       - name: Terraform Plan
-        run: terraform plan -out=tfplan ./terraform
+        run: terraform plan -out=tfplan -chdir=./terraform
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan
+        run: terraform apply -auto-approve tfplan -chdir=./terraform
 
       - name: Get latest image SHA256 digest
         run: |
