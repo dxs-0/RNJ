@@ -7,7 +7,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: "localhost"
+    - host: "ec2-3-66-227-114.eu-central-1.compute.amazonaws.com"
       http:
         paths:
           - path: /
