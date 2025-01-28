@@ -51,12 +51,12 @@ jobs:
       - name: Create namespace
         continue-on-error: true
         run: |
-          kubectl create namespace rn-jesus
+          kubectl create namespace rn-jesus --insecure-skip-tls-verify
 
       - name: Deploy to the Kubernetes cluster
         uses: azure/k8s-deploy@v5
         with:
-          action: deploy --force
+          action: deploy
           manifests: k8s/
           images: |
             dxs01/rn_jesus:${{ env.LATEST_SHA }}
