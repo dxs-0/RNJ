@@ -105,7 +105,7 @@ Since AWS free tier is in use, the deployment is minimal. However, this is merel
 
 **Kubernetes Node**
 
-![alt text](https://github.com/dxs-0/RNJ/blob/main/docs/deployment.PNG) 
+![alt text](https://github.com/dxs-0/RNJ/blob/main/docs/deployment.PNG)
 
 **1. Terraform Initialization, Planning, and Application**
 
@@ -148,6 +148,3 @@ This command uploads the JSON file containing the Terraform outputs to an S3 buc
 **Step 3: Fetch Kubeconfig and Secrets** This step involves fetching the Kubernetes configuration file and SSH key.
 
 **Step 4: Upload to GitHub Secrets** Upload the contents from the files to GitHub Secrets for KUBECONFIG and KUBE\_CONFIG (the SSH key).
-
-
-
