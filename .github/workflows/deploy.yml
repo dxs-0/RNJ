@@ -50,6 +50,10 @@ jobs:
           export LATEST_SHA=$(curl -s https://registry.hub.docker.com/v2/repositories/dxs01/rn_jesus/tags | jq -r '.results[0].name')
           echo "LATEST_SHA=$LATEST_SHA" >> $GITHUB_ENV
 
+      - name: create namespace
+        continue-on-error: true
+        run: kubectl create namespace rn-jesus
+
       - name: Deploy to the Kubernetes cluster
         uses: azure/k8s-deploy@v5
         with:
